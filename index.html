@@ -5,12 +5,14 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Coin Flip Site!</title>
-    <meta name="description" content="">
+    <meta name="description" content="Betting madness">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap is love, bootstrap is life -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
 
+    <!-- Custom css -->
+    <link rel="stylesheet" href="css/main.css" type="text/css">
 </head>
 
 <body>
@@ -27,7 +29,7 @@
                     </header>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id="addNewPlayersMenu">
                 <div class="col-sm">
                     <p>Player 1: <input type="text" id="p1nameInp"></p>
                 </div>
@@ -38,7 +40,15 @@
                     <button id="btnAddPlayerNames">Submit!</button>
                 </div>
             </div>
+            <div class="row hidden" id="addNewPlayersButton">
+                <div class="col-sm">
+                    <button id="btnNewPlayers">New Players?</button>
+                </div>
+            </div>
         </div>
+        <!-- Quick spacing hotfix -->
+        <br>
+
         <div class="container">
             <div class="row">
                 <!-- Player 1 -->
@@ -50,9 +60,10 @@
                 <!-- The Coin Itself -->
                 <div class="col-sm">
                     <!-- coin -->
-                    <p id="coin"></p>
+                    <img src="img/both.png" alt="coin" id="coinImage">
                     <!-- Roll Button -->
                     <button id="rollCoinBtn">Roll!</button>
+                    <p id="winningTicket"></p>
                 </div>
 
                 <!-- Player 2 -->
