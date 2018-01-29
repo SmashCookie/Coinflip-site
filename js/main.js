@@ -1,7 +1,11 @@
+// TODO: Learn more about closures
 const btnAddPlayerNames = document.querySelector("#btnAddPlayerNames");
 const btnNewPlayers = document.querySelector("#btnNewPlayers");
 const rollCoinBtn = document.querySelector("#rollCoinBtn");
 const image = document.querySelector("#coinImage");
+const p1roll = document.querySelector("#p1roll");
+const p2roll = document.querySelector("#p2roll");
+const winningTicketOutput = document.querySelector("#winningTicket");
 
 btnNewPlayers.addEventListener("click", function(){
     toggleHidden();
@@ -33,7 +37,6 @@ function getRandomNumber() {
 function getWinnerFromRandomNumber() {
     //Calls the random number function
     const number = getRandomNumber();
-    const winningTicketOutput = document.querySelector("#winningTicket");
 
     //Prints the winning number to the user.
     winningTicketOutput.textContent = "Roll Number : " + number.toFixed(4) + "%";
@@ -48,17 +51,23 @@ function getWinnerFromRandomNumber() {
 
 // When getWinnerFromRandomNumber() has decided a winner, print the results to the user.
 function printWinner(winner) {
-    const p1roll = document.querySelector("#p1roll");
-    const p2roll = document.querySelector("#p2roll");
-
+    // TODO: Optimize all this classlist methods..
     if (winner === 1) {
         p1roll.textContent = "WINNER!";
-        p2roll.textContent = "LOSER!";
+        p1roll.classList.add("green");
+        p1roll.classList.remove("red");
         image.src = "img/terrorist.png";
+        p2roll.classList.add("red");
+        p2roll.classList.remove("green");
+        p2roll.textContent = "LOSER!";
     } else {
         p1roll.textContent = "LOSER!";
-        p2roll.textContent = "WINNER!";
+        p1roll.classList.add("red");
+        p1roll.classList.remove("green");
         image.src = "img/counter-terrorist.png";
+        p2roll.textContent = "WINNER!";
+        p2roll.classList.add("green");
+        p2roll.classList.remove("red");
     }
 }
 // Rotates the image for tension :-)
@@ -77,13 +86,27 @@ function rotateCoinImage() {
             clearInterval(rotateImage);
             getWinnerFromRandomNumber();
         }
-
     }, 1);
 }
 function toggleHidden() {
     const addNewPlayersMenu = document.querySelector("#addNewPlayersMenu"); // Users havent put in a name yet.
     const addNewPlayersButton = document.querySelector("#addNewPlayersButton"); // Users have put in name.
+    const gameScreen = document.querySelector("#gameScreen");
+    const headingEYN = document.querySelector("#headingEnterYourNames");
+    const headingYLD = document.querySelector("#headingLuckyDay");
     // Toggles the css class hidden on the html tags
     addNewPlayersMenu.classList.toggle("hidden");
     addNewPlayersButton.classList.toggle("hidden");
+    headingEYN.classList.toggle("hidden");
+    headingYLD.classList.toggle("hidden");
+    //If the users havent added any names, the "game screen" is hidden.
+    gameScreen.classList.toggle("hidden");
+    resetGameScreen();
+}
+
+function resetGameScreen() {
+    p1roll.textContent = " ";
+    p2roll.textContent = " ";
+    image.src = "img/both.png";
+    winningTicketOutput.textContent = " ";
 }

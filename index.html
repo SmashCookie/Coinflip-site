@@ -1,7 +1,11 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html class="no-js" lang="en">
 
 <head>
+    <!--
+        TODO: Fix all the quick spacing hotfixes
+    -->
+
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Coin Flip Site!</title>
@@ -22,38 +26,49 @@
 
     <div class="container-fluid text-center">
         <div class="container">
-            <div class="row">
+            <div class="row" id="headingEnterYourNames">
                 <div class="col-sm">
                     <header class="header">
-                        <h1 class="h1">Place your bets!</h1>
+                        <h1 class="display-4">Enter Your Names!</h1>
                     </header>
                 </div>
             </div>
-            <div class="row" id="addNewPlayersMenu">
+            <div class="row hidden" id="headingLuckyDay">
                 <div class="col-sm">
-                    <p>Player 1: <input type="text" id="p1nameInp"></p>
+                    <header class="header">
+                        <h1 class="display-4">Is Today Your Lucky Day?</h1>
+                    </header>
+                </div>
+            </div>
+
+            <!-- Quick spacing hotfix -->
+            <br>
+
+            <div class="row no-gutters" id="addNewPlayersMenu">
+                <div class="col-sm">
+                    <p class="lead">Player 1: <input type="text" id="p1nameInp"></p>
                 </div>
                 <div class="col-sm">
-                    <p>Player 2: <input type="text" id="p2nameInp"></p>
+                    <p class="lead">Player 2: <input type="text" id="p2nameInp"></p>
                 </div>
                 <div class="col-sm">
-                    <button id="btnAddPlayerNames">Submit!</button>
+                    <button id="btnAddPlayerNames" class="btn btn-primary">Add Players</button>
                 </div>
             </div>
             <div class="row hidden" id="addNewPlayersButton">
                 <div class="col-sm">
-                    <button id="btnNewPlayers">New Players?</button>
+                    <button id="btnNewPlayers" class="btn btn-primary">New Players?</button>
                 </div>
             </div>
         </div>
         <!-- Quick spacing hotfix -->
         <br>
 
-        <div class="container">
+        <div class="container jumbotron hidden" id="gameScreen">
             <div class="row">
                 <!-- Player 1 -->
                 <div class="col-sm">
-                    <p id="p1name"></p>
+                    <p id="p1name" class="display-4"></p>
                     <p id="p1roll" class="h2"></p>
                 </div>
 
@@ -66,14 +81,14 @@
                     <!-- Another quick spacing hotfix -->
                     <br><br>
 
-                    <button id="rollCoinBtn">Roll!</button>
+                    <button id="rollCoinBtn" class="btn btn-danger">ROLL</button>
                     <p id="winningTicket"></p>
                 </div>
 
                 <!-- Player 2 -->
                 <div class="col-sm">
                     <!-- Player 2 Info -->
-                    <p id="p2name"></p>
+                    <p id="p2name" class="display-4"></p>
                     <p id="p2roll" class="h2"></p>
                 </div>
             </div>
