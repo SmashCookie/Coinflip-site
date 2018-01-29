@@ -17,13 +17,6 @@ btnAddPlayerNames.addEventListener("click", function() {
     toggleHidden();
 });
 
-function toggleHidden() {
-    const addNewPlayersMenu = document.querySelector("#addNewPlayersMenu"); // Users havent put in a name yet.
-    const addNewPlayersButton = document.querySelector("#addNewPlayersButton"); // Users have put in name.
-    addNewPlayersMenu.classList.toggle("hidden");
-    addNewPlayersButton.classList.toggle("hidden");
-}
-
 // Call the neccesary functions when the user clicks the roll coin button.
 // TODO: Note to self: If no other function calls needs to be made, change the addEventListener to ("click", rotateCoinImage())
 rollCoinBtn.addEventListener("click", function() {
@@ -81,8 +74,16 @@ function rotateCoinImage() {
         if (rotationDegree >= 360) {
             image.style.transform = "rotate(360deg)";
             //Calls the function which generates the winner
-            getWinnerFromRandomNumber();
             clearInterval(rotateImage);
+            getWinnerFromRandomNumber();
         }
+
     }, 1);
+}
+function toggleHidden() {
+    const addNewPlayersMenu = document.querySelector("#addNewPlayersMenu"); // Users havent put in a name yet.
+    const addNewPlayersButton = document.querySelector("#addNewPlayersButton"); // Users have put in name.
+    // Toggles the css class hidden on the html tags
+    addNewPlayersMenu.classList.toggle("hidden");
+    addNewPlayersButton.classList.toggle("hidden");
 }
