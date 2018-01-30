@@ -88,20 +88,18 @@ function rotateCoinImage() {
         }
     }, 2);
 }
+
+// TODO: Create a querySelectorAll arr for the game menu toggles :-)
 function toggleHidden() {
     const addNewPlayersMenu = document.querySelector("#addNewPlayersMenu"); // Users havent put in a name yet.
     const addNewPlayersButton = document.querySelector("#addNewPlayersButton"); // Users have put in name.
     const gameScreen = document.querySelector("#gameScreen");
     const headingEYN = document.querySelector("#headingEnterYourNames");
     const headingYLD = document.querySelector("#headingLuckyDay");
-    // Toggles the css class hidden on the html tags
-    addNewPlayersMenu.classList.toggle("hidden");
-    addNewPlayersButton.classList.toggle("hidden");
-    // Switches between the enter names menu, and game menu
-    headingEYN.classList.toggle("hidden");
-    headingYLD.classList.toggle("hidden");
-    //If the users havent added any names, the "game screen" is hidden.
-    gameScreen.classList.toggle("hidden");
+    const gameMenus = document.querySelectorAll("div .gameMenu");
+    for(let i = 0; i < gameMenus.length; i++) {
+        gameMenus[i].classList.toggle("hidden");
+    }
     resetGameScreen();
 }
 
