@@ -4,14 +4,14 @@ const image = document.querySelector("#coinImage");
 const rollCoinBtn = document.querySelector("#rollCoinBtn");
 const rollResult = document.querySelectorAll(".rollResult");
 const winningTicketOutput = document.querySelector("#winningTicket");
-let isClicked = false;
+let isClicked = false; // spam hotfix
 
 btnNewPlayers.addEventListener("click", function() {
     toggleHidden();
 });
 
 btnAddPlayerNames.addEventListener("click", function() {
-    let playerNames = document.querySelectorAll(".playerName");
+    let playerNames = getPlayerNames();
     let displayPlayerNames = document.querySelectorAll(".displayPlayerNames");
     //Loops through the html input fields and where to output the text to the screen
     for (let i = 0; i <= 1; i++) {
@@ -21,6 +21,11 @@ btnAddPlayerNames.addEventListener("click", function() {
     }
     toggleHidden();
 });
+
+function getPlayerNames() {
+    let playerNames = document.querySelectorAll(".playerName");
+    return playerNames;
+}
 
 // Call the neccesary functions when the user clicks the roll coin button.
 // TODO: Note to self: If no other function calls needs to be made, change the addEventListener to ("click", rotateCoinImage())
@@ -76,6 +81,7 @@ function printWinner(winner) {
         rollResult[1].classList.remove("red");
     }
 }
+
 // Rotates the image for tension :-)
 function rotateCoinImage() {
     image.src = "img/both.png";
