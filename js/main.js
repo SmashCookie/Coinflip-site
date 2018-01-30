@@ -17,7 +17,8 @@ btnAddPlayerNames.addEventListener("click", function() {
     for (let i = 0; i <= 1; i++) {
         let inp = playerNames[i];
         let output = displayPlayerNames[i];
-        output.textContent = inp.value;
+        let name = inp.value;
+        output.textContent = name.toUpperCase();
     }
     toggleHidden();
 });
@@ -30,7 +31,7 @@ function getPlayerNames() {
 // Call the neccesary functions when the user clicks the roll coin button.
 // TODO: Note to self: If no other function calls needs to be made, change the addEventListener to ("click", rotateCoinImage())
 rollCoinBtn.addEventListener("click", function() {
-    if(isClicked === false){
+    if (isClicked === false) {
         rotateCoinImage();
         isClicked = true;
     } else {
@@ -55,8 +56,12 @@ function getWinnerFromRandomNumber() {
     //Checks the number to decide the winner, puts in the appropriate parameter
     if (number < 50) {
         printWinner(1);
+        logResults(1, number);
+        addPointToOverallScore(1);
     } else {
         printWinner(2);
+        logResults(2, number);
+        addPointToOverallScore(2);
     }
 }
 
@@ -82,6 +87,34 @@ function printWinner(winner) {
     }
 }
 
+function logResults(winner, ticket) {
+    let name = getPlayerNames();
+    let output = document.querySelector("#gameLog"); //chosen div
+    let p = document.createElement("p");
+    let text;
+    if (winner === 1) {
+        text = document.createTextNode(name[0].value + " won with the ticket : " + ticket.toFixed(4));
+        p.appendChild(text);
+        output.insertBefore(p, output.firstChild);
+    } else {
+        text = document.createTextNode(name[1].value + " won with the ticket : " + ticket.toFixed(4));
+        p.appendChild(text);
+        output.insertBefore(p, output.firstChild);
+    }
+}
+
+function addPointToOverallScore(winner) {
+    let scores = document.querySelectorAll(".amountOfWins");
+    // Changes the i based on which one won the roll
+    let i;
+    if (winner === 1) {i = 0;} else {i = 1}
+    // Converts the current score in the P element to a number
+    let currentScore = parseInt(scores[i].textContent);
+    //Adds +1 to the score and prints out the result!
+    currentScore++;
+    scores[i].textContent = currentScore;
+}
+
 // Rotates the image for tension :-)
 function rotateCoinImage() {
     image.src = "img/both.png";
@@ -102,7 +135,6 @@ function rotateCoinImage() {
     }, 2);
 }
 
-// TODO: Create a querySelectorAll arr for the game menu toggles :-)
 function toggleHidden() {
     const gameMenus = document.querySelectorAll("div .gameMenu");
 
