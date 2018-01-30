@@ -97,6 +97,7 @@ function toggleHidden() {
     // Toggles the css class hidden on the html tags
     addNewPlayersMenu.classList.toggle("hidden");
     addNewPlayersButton.classList.toggle("hidden");
+    // Switches between the enter names menu, and game menu
     headingEYN.classList.toggle("hidden");
     headingYLD.classList.toggle("hidden");
     //If the users havent added any names, the "game screen" is hidden.
