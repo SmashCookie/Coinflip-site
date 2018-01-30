@@ -91,12 +91,8 @@ function rotateCoinImage() {
 
 // TODO: Create a querySelectorAll arr for the game menu toggles :-)
 function toggleHidden() {
-    const addNewPlayersMenu = document.querySelector("#addNewPlayersMenu"); // Users havent put in a name yet.
-    const addNewPlayersButton = document.querySelector("#addNewPlayersButton"); // Users have put in name.
-    const gameScreen = document.querySelector("#gameScreen");
-    const headingEYN = document.querySelector("#headingEnterYourNames");
-    const headingYLD = document.querySelector("#headingLuckyDay");
     const gameMenus = document.querySelectorAll("div .gameMenu");
+    
     for(let i = 0; i < gameMenus.length; i++) {
         gameMenus[i].classList.toggle("hidden");
     }
