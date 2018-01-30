@@ -4,6 +4,7 @@ const image = document.querySelector("#coinImage");
 const rollCoinBtn = document.querySelector("#rollCoinBtn");
 const rollResult = document.querySelectorAll(".rollResult");
 const winningTicketOutput = document.querySelector("#winningTicket");
+let isClicked = false;
 
 btnNewPlayers.addEventListener("click", function() {
     toggleHidden();
@@ -24,7 +25,12 @@ btnAddPlayerNames.addEventListener("click", function() {
 // Call the neccesary functions when the user clicks the roll coin button.
 // TODO: Note to self: If no other function calls needs to be made, change the addEventListener to ("click", rotateCoinImage())
 rollCoinBtn.addEventListener("click", function() {
-    rotateCoinImage();
+    if(isClicked === false){
+        rotateCoinImage();
+        isClicked = true;
+    } else {
+        console.log("clicked too fast!");
+    }
 });
 
 // Gets a random number
@@ -85,6 +91,7 @@ function rotateCoinImage() {
             //Calls the function which generates the winner
             clearInterval(rotateImage);
             getWinnerFromRandomNumber();
+            isClicked = false;
         }
     }, 2);
 }
