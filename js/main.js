@@ -5,7 +5,7 @@ const rollCoinBtn = document.querySelector("#rollCoinBtn");
 const rollResult = document.querySelectorAll(".rollResult");
 const winningTicketOutput = document.querySelector("#winningTicket");
 
-btnNewPlayers.addEventListener("click", function(){
+btnNewPlayers.addEventListener("click", function() {
     toggleHidden();
 });
 
@@ -93,7 +93,7 @@ function rotateCoinImage() {
 function toggleHidden() {
     const gameMenus = document.querySelectorAll("div .gameMenu");
 
-    for(let i = 0; i < gameMenus.length; i++) {
+    for (let i = 0; i < gameMenus.length; i++) {
         gameMenus[i].classList.toggle("hidden");
     }
     resetGameScreen();
