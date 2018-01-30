@@ -78,7 +78,7 @@ function rotateCoinImage() {
     // Real simple way of rotating the image. it have to update the function ever 1ms though.. (probably a more efficient way of doing this)
     let rotateImage = setInterval(function() {
         image.style.transform = "rotate(" + rotationDegree + "deg)";
-        rotationDegree += 2;
+        rotationDegree += 1;
 
         if (rotationDegree >= 360) {
             image.style.transform = "rotate(360deg)";
@@ -86,7 +86,7 @@ function rotateCoinImage() {
             clearInterval(rotateImage);
             getWinnerFromRandomNumber();
         }
-    }, 1);
+    }, 2);
 }
 function toggleHidden() {
     const addNewPlayersMenu = document.querySelector("#addNewPlayersMenu"); // Users havent put in a name yet.
