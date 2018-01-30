@@ -104,7 +104,7 @@ function logResults(winner, ticket) {
 }
 
 function addPointToOverallScore(winner) {
-    let scores = document.querySelectorAll(".amountOfWins");
+    let scores = getScores();
     // Changes the i based on which one won the roll
     let i;
     if (winner === 1) {i = 0;} else {i = 1}
@@ -113,6 +113,11 @@ function addPointToOverallScore(winner) {
     //Adds +1 to the score and prints out the result!
     currentScore++;
     scores[i].textContent = currentScore;
+}
+
+function getScores() {
+  let scores = document.querySelectorAll(".amountOfWins");
+  return scores;
 }
 
 // Rotates the image for tension :-)
@@ -145,6 +150,9 @@ function toggleHidden() {
 }
 
 function resetGameScreen() {
+    const scores = getScores();
+    scores[0].textContent = "0";
+    scores[1].textContent = "0";
     rollResult[0].textContent = " ";
     rollResult[1].textContent = " ";
     image.src = "img/both.png";
