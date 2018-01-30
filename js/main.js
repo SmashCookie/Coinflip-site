@@ -1,10 +1,8 @@
-// TODO: Learn more about closures
 const btnAddPlayerNames = document.querySelector("#btnAddPlayerNames");
 const btnNewPlayers = document.querySelector("#btnNewPlayers");
-const rollCoinBtn = document.querySelector("#rollCoinBtn");
 const image = document.querySelector("#coinImage");
-const p1roll = document.querySelector("#p1roll");
-const p2roll = document.querySelector("#p2roll");
+const rollCoinBtn = document.querySelector("#rollCoinBtn");
+const rollResult = document.querySelectorAll(".rollResult");
 const winningTicketOutput = document.querySelector("#winningTicket");
 
 btnNewPlayers.addEventListener("click", function(){
@@ -12,10 +10,12 @@ btnNewPlayers.addEventListener("click", function(){
 });
 
 btnAddPlayerNames.addEventListener("click", function() {
+    let playerNames = document.querySelectorAll(".playerName");
+    let displayPlayerNames = document.querySelectorAll(".displayPlayerNames");
     //Loops through the html input fields and where to output the text to the screen
-    for (let i = 1; i <= 2; i++) {
-        const inp = document.querySelector("#p" + i + "nameInp");
-        const output = document.querySelector("#p" + i + "name");
+    for (let i = 0; i <= 1; i++) {
+        let inp = playerNames[i];
+        let output = displayPlayerNames[i];
         output.textContent = inp.value;
     }
     toggleHidden();
@@ -53,21 +53,21 @@ function getWinnerFromRandomNumber() {
 function printWinner(winner) {
     // TODO: Optimize all this classlist methods..
     if (winner === 1) {
-        p1roll.textContent = "WINNER!";
-        p1roll.classList.add("green");
-        p1roll.classList.remove("red");
+        rollResult[0].textContent = "WINNER!";
+        rollResult[0].classList.add("green");
+        rollResult[0].classList.remove("red");
         image.src = "img/terrorist.png";
-        p2roll.classList.add("red");
-        p2roll.classList.remove("green");
-        p2roll.textContent = "LOSER!";
+        rollResult[1].classList.add("red");
+        rollResult[1].classList.remove("green");
+        rollResult[1].textContent = "LOSER!";
     } else {
-        p1roll.textContent = "LOSER!";
-        p1roll.classList.add("red");
-        p1roll.classList.remove("green");
+        rollResult[0].textContent = "LOSER!";
+        rollResult[0].classList.add("red");
+        rollResult[0].classList.remove("green");
         image.src = "img/counter-terrorist.png";
-        p2roll.textContent = "WINNER!";
-        p2roll.classList.add("green");
-        p2roll.classList.remove("red");
+        rollResult[1].textContent = "WINNER!";
+        rollResult[1].classList.add("green");
+        rollResult[1].classList.remove("red");
     }
 }
 // Rotates the image for tension :-)
@@ -92,7 +92,7 @@ function rotateCoinImage() {
 // TODO: Create a querySelectorAll arr for the game menu toggles :-)
 function toggleHidden() {
     const gameMenus = document.querySelectorAll("div .gameMenu");
-    
+
     for(let i = 0; i < gameMenus.length; i++) {
         gameMenus[i].classList.toggle("hidden");
     }
@@ -100,8 +100,8 @@ function toggleHidden() {
 }
 
 function resetGameScreen() {
-    p1roll.textContent = " ";
-    p2roll.textContent = " ";
+    rollResult[0].textContent = " ";
+    rollResult[1].textContent = " ";
     image.src = "img/both.png";
     winningTicketOutput.textContent = " ";
 }

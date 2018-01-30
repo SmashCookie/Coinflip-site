@@ -46,10 +46,10 @@
 
             <div class="row no-gutters gameMenu">
                 <div class="col-sm">
-                    <p class="lead">Player 1: <input type="text" id="p1nameInp"></p>
+                    <p class="lead">Player 1: <input type="text" id="p1nameInp" class="playerName"></p>
                 </div>
                 <div class="col-sm">
-                    <p class="lead">Player 2: <input type="text" id="p2nameInp"></p>
+                    <p class="lead">Player 2: <input type="text" id="p2nameInp" class="playerName"></p>
                 </div>
                 <div class="col-sm">
                     <button id="btnAddPlayerNames" class="btn btn-primary">Add Players</button>
@@ -68,8 +68,8 @@
             <div class="row">
                 <!-- Player 1 -->
                 <div class="col-sm">
-                    <p id="p1name" class="display-4"></p>
-                    <p id="p1roll" class="h2"></p>
+                    <p class="display-4 displayPlayerNames"></p>
+                    <p id="p1roll" class="h2 rollResult"></p>
                 </div>
 
                 <!-- The Coin Itself -->
@@ -92,8 +92,8 @@
                 <!-- Player 2 -->
                 <div class="col-sm">
                     <!-- Player 2 Info -->
-                    <p id="p2name" class="display-4"></p>
-                    <p id="p2roll" class="h2"></p>
+                    <p class="display-4 displayPlayerNames"></p>
+                    <p id="p2roll" class="h2 rollResult"></p>
                 </div>
             </div>
         </div>
