@@ -141,14 +141,11 @@ function rotateCoinImage() {
 }
 
 function toggleHidden() {
-    const gameMenus = document.querySelectorAll("div .gameMenu");
-
+    const gameMenus = document.querySelectorAll(".gameMenu");
+    
     for (let i = 0; i < gameMenus.length; i++) {
         gameMenus[i].classList.toggle("hidden");
     }
-
-
-
     resetGameScreen();
 }
 
