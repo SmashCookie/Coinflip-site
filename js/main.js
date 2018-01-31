@@ -146,6 +146,9 @@ function toggleHidden() {
     for (let i = 0; i < gameMenus.length; i++) {
         gameMenus[i].classList.toggle("hidden");
     }
+
+
+
     resetGameScreen();
 }
 
