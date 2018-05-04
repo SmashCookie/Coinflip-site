@@ -1,4 +1,4 @@
-//(function () {
+(function () {
     // The player class used to generate the name and a score property. also checks the 
     class Player {
         constructor(playerName, team) {
@@ -15,7 +15,7 @@
         get score() {
             return this.points;
         }
-        addScore(){
+        addScore() {
             this.points++;
         }
     }
@@ -24,16 +24,18 @@
     let playerTwo = new Player(CL.getInput('#playerTwo'), 'ct');
     // array of the player objects
     let players = [playerOne, playerTwo];
+    // HOTFIX TODO: FIX
+    let toSpinOrNotToSpin = true;
     // objects that contains the methods to display / change information on the screen
     const GAME = {
         roll: 0,
         winner: '',
         Create_New_Players: () => {
             // The 'global' player objects
-            playerOne = new Player(CL.getInput('#playerOne'),'t');
-            playerTwo = new Player(CL.getInput('#playerTwo'),'ct');
+            playerOne = new Player(CL.getInput('#playerOne'), 't');
+            playerTwo = new Player(CL.getInput('#playerTwo'), 'ct');
             // array of the player objects
-            players = [playerOne, playerTwo];            
+            players = [playerOne, playerTwo];
         },
         // Displays the player names on the game screen
         Display_Player_Names: () => {
@@ -76,15 +78,24 @@
         },
         // Generates a random number between 0 and 1,000,000.
         Roll_Coin: () => {
-            GAME.roll = Math.floor(Math.random()*1000000);
+            GAME.roll = Math.floor(Math.random() * 1000000);
         },
         // Spins the coin image
         Spin_Coin: () => {
-            CL.rotateImage360('#game #coin', 1, showResult);
+            if (toSpinOrNotToSpin) {
+                setTimeout(function () {
+                    toSpinOrNotToSpin = !toSpinOrNotToSpin;
+                }, 2000);
+            }
+            if (toSpinOrNotToSpin) {
+                CL.rotateImage360('#game #coin', 0.2, showResult);
+                toSpinOrNotToSpin = false;
+            }
+            
         },
         // Generates the winner, if the number is below 499,999 then it's t side, else it's ct side.
         Get_Winner: () => {
-            if(GAME.roll >= 499999){
+            if (GAME.roll >= 499999) {
                 return 'terrorist';
             } else {
                 return 'counterterrorist';
@@ -93,25 +104,25 @@
         // Changes the text color of the players to either green or red depends on if they won or lost.
         Change_Player_Color: (value) => {
             const element = CL.selectAll('#game span');
-            if(value === 'terrorist'){
+            if (value === 'terrorist') {
                 element[0].style.color = 'green';
                 element[1].style.color = 'red';
-            } else if (value === 'counterterrorist'){
+            } else if (value === 'counterterrorist') {
                 element[0].style.color = 'red';
                 element[1].style.color = 'green';
             } else if (value === 'reset') {
-                element.forEach(span=>span.style.color = 'black');
+                element.forEach(span => span.style.color = 'black');
             }
         },
         Change_Coin_Image: (coin) => {
             // array of the coin images
             const coins = ['./img/both.png', './img/terrorist.png', './img/counter-terrorist.png'];
             const img = CL.select('#coin');
-            if(coin === 'both'){
+            if (coin === 'both') {
                 img.src = coins[0];
-            }else if(coin === 'terrorist'){
+            } else if (coin === 'terrorist') {
                 img.src = coins[1];
-            }else if(coin === 'counterterrorist'){
+            } else if (coin === 'counterterrorist') {
                 img.src = coins[2];
             }
         }
@@ -134,9 +145,6 @@
     }
     // Plays the game each time the play button is clicked
     const showResult = () => {
-        // TODO: Show score
-        // TODO: Show win % roll
-        // TODO: Show result log
 
         // Rolls the coin -Must be above functions requireing the number-
         GAME.Roll_Coin();
@@ -155,4 +163,4 @@
     CL.select('#btnNewGame').addEventListener('click', clearGame);
     // Binds the click event on the spin button tothe clearGame function
     CL.select('#btnSpin').addEventListener('click', spinCoin);
-//})();
+})();
