@@ -91,7 +91,7 @@
                 CL.rotateImage360('#game #coin', 0.2, showResult);
                 toSpinOrNotToSpin = false;
             }
-            
+
         },
         // Generates the winner, if the number is below 499,999 then it's t side, else it's ct side.
         Get_Winner: () => {
@@ -101,20 +101,9 @@
                 return 'counterterrorist';
             }
         },
-        // Changes the text color of the players to either green or red depends on if they won or lost.
-        Change_Player_Color: (value) => {
-            const element = CL.selectAll('#game span');
-            if (value === 'terrorist') {
-                element[0].style.color = 'green';
-                element[1].style.color = 'red';
-            } else if (value === 'counterterrorist') {
-                element[0].style.color = 'red';
-                element[1].style.color = 'green';
-            } else if (value === 'reset') {
-                element.forEach(span => span.style.color = 'black');
-            }
-        },
-        Change_Coin_Image: (coin) => {
+        // Changes the image to either a coin showing 'both', one showing the 'terrorist' side, 
+        // or the one showing the 'counterterrorist' side.
+        Change_Coin_Image_To: (coin) => {
             // array of the coin images
             const coins = ['./img/both.png', './img/terrorist.png', './img/counter-terrorist.png'];
             const img = CL.select('#coin');
@@ -125,6 +114,29 @@
             } else if (coin === 'counterterrorist') {
                 img.src = coins[2];
             }
+        },
+        Display_Winner_Text: (winner) => {
+            const spans = CL.selectAll('.displayWinnerText');
+            if (winner === 'terrorist') {
+                spans[0].textContent = 'Winner';
+                spans[1].textContent = 'Loser';
+            } else if (winner === 'counterterrorist') {
+                spans[0].textContent = 'Loser';
+                spans[1].textContent = 'Winner';
+            }
+        },
+        Change_Winner_Color: (winner) => {
+            const spans = CL.selectAll('.displayWinnerText');
+            if (winner === 'terrorist') {
+                spans[0].style.color = 'green';
+                spans[1].style.color = 'red';
+            } else if (winner === 'counterterrorist') {
+                spans[0].style.color = 'red';
+                spans[1].style.color = 'green';
+            }
+        },
+        Remove_Winner_Text: () => {
+            CL.selectAll('.displayWinnerText').forEach(span => span.textContent = '');
         }
     }
     // Calls on all the methods in the gameInfo object to initialize the game
@@ -142,19 +154,21 @@
         GAME.Toggle_header_text();
         GAME.Toggle_Player_Inputs();
         GAME.Toggle_Display_Game();
+        GAME.Remove_Winner_Text();
     }
     // Plays the game each time the play button is clicked
     const showResult = () => {
-
         // Rolls the coin -Must be above functions requireing the number-
         GAME.Roll_Coin();
-        GAME.Change_Player_Color(GAME.Get_Winner());
-        GAME.Change_Coin_Image(GAME.Get_Winner());
+        // Get_Winner method returns either 'terrorist', or 'counterterrorist'.
+        GAME.Change_Coin_Image_To(GAME.Get_Winner());
+        GAME.Display_Winner_Text(GAME.Get_Winner());
+        GAME.Change_Winner_Color(GAME.Get_Winner());
     }
     // Spins the coin and changes the image also resets the player name colors
     const spinCoin = () => {
-        GAME.Change_Coin_Image('both');
-        GAME.Change_Player_Color('reset');
+        GAME.Change_Coin_Image_To('both');
+        GAME.Remove_Winner_Text();
         GAME.Spin_Coin();
     }
     // Binds the click event on the 'PLAY!' button to the initialize function
