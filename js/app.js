@@ -27,7 +27,7 @@
     // HOTFIX TODO: FIX
     let toSpinOrNotToSpin = true;
     // objects that contains the methods to display / change information on the screen
-    const GAME = {
+    const COINFLIP = {
         roll: 0,
         Create_New_Players: () => {
             // The 'global' player objects
@@ -56,6 +56,7 @@
         // Displays the game container
         Toggle_Display_Game: () => {
             CL.select('#game').classList.toggle('hidden');
+            CL.select('#resultDiv').classList.toggle('hidden');
         },
         // Clears the input fields
         Clear_Player_Inputs: () => {
@@ -75,7 +76,7 @@
         },
         // Generates a random number between 0 and 1,000,000.
         Roll_Coin_Ticket: () => {
-            GAME.roll = Math.floor(Math.random() * 1000000);
+            COINFLIP.roll = Math.floor(Math.random() * 1000000);
         },
         // Spins the coin image
         Spin_Coin: () => {
@@ -96,8 +97,8 @@
         },
         // Generates the winner, if the number is below 499,999 then it's t side, else it's ct side.
         // This method will either return the string 'terrorist', or 'counterterrorist'.
-        Get_Winning_Ticket: () => {
-            if (GAME.roll >= 499999) {
+        Get_Winner_Name: () => {
+            if (COINFLIP.roll <= 499999) {
                 return 'terrorist';
             } else {
                 return 'counterterrorist';
@@ -154,6 +155,25 @@
                 ele[i].textContent = `Score: ${player.points}`
                 i++;
             });
+        },
+        // Displays the recent result to the screen
+        // TODO: Refactor and optimize this code if possible.
+        Display_Recent_Result: (winner) => {
+            const roll = `${COINFLIP.roll}`;
+            const arr = roll.split('');
+            arr.splice(2, 0, '.');
+            const winningRoll = arr.join('');
+            let winnerName;
+            if(winner === 'terrorist'){
+                winnerName = 'Terrorist';
+            }else{
+                winnerName = 'Counter Terrorist';
+            }
+            // createTextElement : Element to make - class - content
+            CL.select('#resultLog').insertBefore(CL.createTextElement('p', 'lead', `${winnerName} won with the roll of ${winningRoll}%`), CL.select('#resultLog').firstChild);
+        },
+        Clear_Recent_Result: () => {
+            CL.select('#resultLog').innerHTML = '';
         }
     }
     // Calls on all the methods in the gameInfo object to initialize the game
@@ -165,57 +185,63 @@
             return
         }
         // Creates new player objects, completly rewrites old ones.
-        GAME.Create_New_Players();
+        COINFLIP.Create_New_Players();
         // Displays those player names in the 'game' div.
-        GAME.Display_Player_Names();
+        COINFLIP.Display_Player_Names();
         // Hides the player inputs
-        GAME.Toggle_Player_Inputs();
+        COINFLIP.Toggle_Player_Inputs();
         // Changes the header text
-        GAME.Toggle_header_text();
+        COINFLIP.Toggle_header_text();
         // Displays the current score of both players.
-        GAME.Display_Current_Player_Score();
+        COINFLIP.Display_Current_Player_Score();
         // Displays the 'game' div.
-        GAME.Toggle_Display_Game();
+        COINFLIP.Toggle_Display_Game();
     }
     // Calls on the methods that clears the game and prepares it for a new instance of the game
     const clearGame = () => {
         // Clears the value of the input elements
-        GAME.Clear_Player_Inputs();
+        COINFLIP.Clear_Player_Inputs();
         // Clears the text displaying the old player names
-        GAME.Clear_Player_Names();
+        COINFLIP.Clear_Player_Names();
         // Toggles the top header text
-        GAME.Toggle_header_text();
+        COINFLIP.Toggle_header_text();
         // Shows the player inputs again
-        GAME.Toggle_Player_Inputs();
+        COINFLIP.Toggle_Player_Inputs();
         // Hides the 'game' div
-        GAME.Toggle_Display_Game();
+        COINFLIP.Toggle_Display_Game();
         // Removes the result text from the old game
-        GAME.Remove_Result_Text();
+        COINFLIP.Remove_Result_Text();
+        // Changes the coin image to both.png
+        COINFLIP.Change_Coin_Image_To('both');
+        // Clears the result log
+        COINFLIP.Clear_Recent_Result();
     }
     // Plays the game each time the play button is clicked
     const showResult = () => {
         // Generates the winning ticket. This method must be called before any Get_Winner methods is called.
-        GAME.Roll_Coin_Ticket();
+        COINFLIP.Roll_Coin_Ticket();
         // #Get_Winner method returns a string with either 'terrorist', or 'counterterrorist'.#
         // Changes the coin image based on who won.
-        GAME.Change_Coin_Image_To(GAME.Get_Winning_Ticket());
+        COINFLIP.Change_Coin_Image_To(COINFLIP.Get_Winner_Name());
         // Displays a text with 'winner' or 'loser' depending who won.
-        GAME.Display_Result_Text(GAME.Get_Winning_Ticket());
+        COINFLIP.Display_Result_Text(COINFLIP.Get_Winner_Name());
         // Changes the color of the result text
-        GAME.Change_Winner_Color(GAME.Get_Winning_Ticket());
+        COINFLIP.Change_Winner_Color(COINFLIP.Get_Winner_Name());
         // Adds a point to the correct player
-        GAME.Add_Point_To_Winner(GAME.Get_Winning_Ticket());
+        COINFLIP.Add_Point_To_Winner(COINFLIP.Get_Winner_Name());
+        // Displays the result
+        COINFLIP.Display_Recent_Result(COINFLIP.Get_Winner_Name());
         // Displays the current score of both players.
-        GAME.Display_Current_Player_Score();
+        COINFLIP.Display_Current_Player_Score();
     }
     // Spins the coin and changes the image also resets the player name colors
     const spinCoin = () => {
         // Changes the coin image to both.png
-        GAME.Change_Coin_Image_To('both');
+        COINFLIP.Change_Coin_Image_To('both');
         // Removes the text indicating who won
-        GAME.Remove_Result_Text();
+        COINFLIP.Remove_Result_Text();
         // Animates the coin in a spinning motion
-        GAME.Spin_Coin();
+        COINFLIP.Spin_Coin();
     }
     // Binds the click event on the 'PLAY!' button to the initialize function
     CL.select('#btnPlay').addEventListener('click', initializeGame);

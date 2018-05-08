@@ -113,10 +113,10 @@
         }
 
         // creates an HTML element ( h1, h2, p, etc.);
-        lib.createTextElement = (elementToCreate, idOfNewElement, text) => {
+        lib.createTextElement = (elementToCreate, classOfNewElement, text) => {
             const element = document.createElement(elementToCreate);
             const txt = document.createTextNode(text);
-            element.id = idOfNewElement;
+            element.class = classOfNewElement;
             element.appendChild(txt);
             return element;
         }
