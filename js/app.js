@@ -1,4 +1,14 @@
-(function () {
+/*
+    TODO: Keep This Updated.
+    CODE STRUCTURE: ( Line number )
+    1) Player Class ( 13 )
+    2) 'Global' Variables ( 33 )
+    3) The COINFLIP Object ( 40 )
+    4) Functions that calls the methods in the COINFLIP object ( 193 )
+    5) Eventlisteners ( 260 )
+*/
+(function() {
+    'use strict';
     // The player class used to generate the name and a score property.
     class Player {
         constructor(playerName, team) {
@@ -24,12 +34,12 @@
     let playerTwo = new Player(CL.getInput('#playerTwo'), 'ct');
     // array of the player objects
     let players = [playerOne, playerTwo];
-    // HOTFIX TODO: FIX
+    // TODO: HOTFIX
     let toSpinOrNotToSpin = true;
     // objects that contains the methods to display / change information on the screen
     const COINFLIP = {
         roll: 0,
-        Create_New_Players: () => {
+        Create_New_Players: function() {
             // The 'global' player objects
             playerOne = new Player(CL.getInput('#playerOne'), 't');
             playerTwo = new Player(CL.getInput('#playerTwo'), 'ct');
@@ -37,37 +47,37 @@
             players = [playerOne, playerTwo];
         },
         // Displays the player names on the game screen
-        Display_Player_Names: () => {
+        Display_Player_Names: function() {
             let i = 0;
-            CL.selectAll('.displayPlayerName').forEach((name) => {
-                name.textContent = players[i]._name;
+            CL.selectAll('.displayPlayerName').forEach((element) => {
+                element.textContent = players[i]._name;
                 i++;
             });
         },
         // Hides the player inputs and the 'PLAY!' button and shows the 'new game' button instead
-        Toggle_Player_Inputs: () => {
+        Toggle_Player_Inputs: function() {
             CL.select('#newGameScreen').classList.toggle('hidden');
             CL.select('#newGameButtonScreen').classList.toggle('hidden');
         },
         // toggles the header text to display
-        Toggle_header_text: () => {
-            CL.selectAll("header h1").forEach(header => header.classList.toggle('hidden'));
+        Toggle_header_text: function() {
+            CL.selectAll("header h1").forEach(element => element.classList.toggle('hidden'));
         },
         // Displays the game container
-        Toggle_Display_Game: () => {
+        Toggle_Display_Game: function() {
             CL.select('#game').classList.toggle('hidden');
             CL.select('#resultDiv').classList.toggle('hidden');
         },
         // Clears the input fields
-        Clear_Player_Inputs: () => {
-            CL.selectAll('#newGameScreen input').forEach(input => input.value = '');
+        Clear_Player_Inputs: function() {
+            CL.selectAll('#newGameScreen input').forEach(element => element.value = '');
         },
         // Clears the player names in the game field
-        Clear_Player_Names: () => {
-            CL.selectAll('.displayPlayerName').forEach(span => span.textContent = '');
+        Clear_Player_Names: function() {
+            CL.selectAll('.displayPlayerName').forEach(element => element.textContent = '');
         },
         // adds a score point to the chosen player
-        Add_Point_To_Winner: (player) => {
+        Add_Point_To_Winner: function(player) {
             if (player === 'terrorist') {
                 playerOne.addScore();
             } else if (player === 'counterterrorist') {
@@ -75,17 +85,17 @@
             }
         },
         // Generates a random number between 0 and 1,000,000.
-        Roll_Coin_Ticket: () => {
-            COINFLIP.roll = Math.floor(Math.random() * 1000000);
+        Roll_Coin_Ticket: function() {
+            this.roll = Math.floor(Math.random() * 1000000);
         },
         // Spins the coin image
-        Spin_Coin: () => {
+        Spin_Coin: function() {
             // Starts a timeout that will set the toSpinOrNotToSpin to the opposite of what it is
             // In this case it should always set it to True.
             if (toSpinOrNotToSpin) {
-                setTimeout(function () {
+                setTimeout(function() {
                     toSpinOrNotToSpin = !toSpinOrNotToSpin;
-                }, 2000);
+                }, 1700);
             }
             // Calls teh rotateImage360 method from the CL Library
             if (toSpinOrNotToSpin) {
@@ -97,16 +107,16 @@
         },
         // Generates the winner, if the number is below 499,999 then it's t side, else it's ct side.
         // This method will either return the string 'terrorist', or 'counterterrorist'.
-        Get_Winner_Name: () => {
-            if (COINFLIP.roll <= 499999) {
+        Get_Winner_Name: function() {
+            if (this.roll <= 499999) {
                 return 'terrorist';
             } else {
                 return 'counterterrorist';
             }
         },
-        // Changes the image to either a coin showing 'both', one showing the 'terrorist' side, 
+        // Changes the image to either a coin showing 'both', one showing the 'terrorist' side,
         // or the one showing the 'counterterrorist' side.
-        Change_Coin_Image_To: (coin) => {
+        Change_Coin_Image_To: function(coin) {
             // array of the coin images
             const coins = ['./img/both.png', './img/terrorist.png', './img/counter-terrorist.png'];
             const img = CL.select('#coin');
@@ -119,7 +129,7 @@
             }
         },
         // Changes the textContent of the span elements to either Winner or Loser depending who won
-        Display_Result_Text: (winner) => {
+        Display_Result_Text: function(winner) {
             const spans = CL.selectAll('.displayWinnerText');
             if (winner === 'terrorist') {
                 spans[0].textContent = 'Winner';
@@ -130,7 +140,7 @@
             }
         },
         // Changes the colors of the spans to either green or red, depeding on who lost or won.
-        Change_Winner_Color: (winner) => {
+        Change_Winner_Color: function(winner) {
             const spans = CL.selectAll('.displayWinnerText');
             if (winner === 'terrorist') {
                 spans[0].style.color = 'green';
@@ -142,11 +152,11 @@
         },
         // Removes the textContent of the span elements displaying either 'winner' or 'loser'
         // When a new game is initialized
-        Remove_Result_Text: () => {
-            CL.selectAll('.displayWinnerText').forEach(span => span.textContent = '');
+        Remove_Result_Text: function() {
+            CL.selectAll('.displayWinnerText').forEach(element => element.textContent = '');
         },
         // Displays the current score of the two players
-        Display_Current_Player_Score: () => {
+        Display_Current_Player_Score: function() {
             // Span elements
             const ele = CL.selectAll('.playerResults');
             // Counter
@@ -158,26 +168,29 @@
         },
         // Displays the recent result to the screen
         // TODO: Refactor and optimize this code if possible.
-        Display_Recent_Result: (winner) => {
-            const roll = `${COINFLIP.roll}`;
+        Display_Recent_Result: function(winner) {
+            const roll = `${this.roll}`;
             const arr = roll.split('');
             arr.splice(2, 0, '.');
             const winningRoll = arr.join('');
             let winnerName;
-            if(winner === 'terrorist'){
+            if (winner === 'terrorist') {
                 winnerName = 'Terrorist';
-            }else{
+            } else {
                 winnerName = 'Counter Terrorist';
             }
             // createTextElement : Element to make - class - content
-            CL.select('#resultLog').insertBefore(CL.createTextElement('p', 'lead', `${winnerName} won with the roll of ${winningRoll}%`), CL.select('#resultLog').firstChild);
+            CL.select('#resultLog').insertBefore(
+                CL.createTextElement('p', 'lead', `${winnerName} won with the roll of ${winningRoll}%`),
+                CL.select('#resultLog').firstChild
+            );
         },
-        Clear_Recent_Result: () => {
+        Clear_Recent_Result: function()  {
             CL.select('#resultLog').innerHTML = '';
         }
     }
     // Calls on all the methods in the gameInfo object to initialize the game
-    const initializeGame = () => {
+    const initializeGame = function() {
         // Checks if the input fields are empty
         if (CL.getInput('#playerOne') == '' || CL.getInput('#playerTwo') == '') {
             alert("Whoops! Seems like we didn't get one of the names!");
@@ -198,7 +211,7 @@
         COINFLIP.Toggle_Display_Game();
     }
     // Calls on the methods that clears the game and prepares it for a new instance of the game
-    const clearGame = () => {
+    const clearGame = function() {
         // Clears the value of the input elements
         COINFLIP.Clear_Player_Inputs();
         // Clears the text displaying the old player names
@@ -217,10 +230,10 @@
         COINFLIP.Clear_Recent_Result();
     }
     // Plays the game each time the play button is clicked
-    const showResult = () => {
+    const showResult = function() {
         // Generates the winning ticket. This method must be called before any Get_Winner methods is called.
         COINFLIP.Roll_Coin_Ticket();
-        // #Get_Winner method returns a string with either 'terrorist', or 'counterterrorist'.#
+        // # Get_Winner method returns a string with either 'terrorist', or 'counterterrorist'. #
         // Changes the coin image based on who won.
         COINFLIP.Change_Coin_Image_To(COINFLIP.Get_Winner_Name());
         // Displays a text with 'winner' or 'loser' depending who won.
@@ -235,7 +248,7 @@
         COINFLIP.Display_Current_Player_Score();
     }
     // Spins the coin and changes the image also resets the player name colors
-    const spinCoin = () => {
+    const spinCoin = function() {
         // Changes the coin image to both.png
         COINFLIP.Change_Coin_Image_To('both');
         // Removes the text indicating who won
@@ -249,4 +262,4 @@
     CL.select('#btnNewGame').addEventListener('click', clearGame);
     // Binds the click event on the spin button tothe clearGame function
     CL.select('#btnSpin').addEventListener('click', spinCoin);
-})();
+}());

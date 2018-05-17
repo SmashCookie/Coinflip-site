@@ -203,7 +203,7 @@
             const select = document.querySelector(targetElementID);
             // generates an array of all the options in the select list
             const selectedOption = document.querySelectorAll(targetElementID + ' option');
-            // find out which option is currently selected            
+            // find out which option is currently selected
             const selected = selectedOption[parseInt(select.selectedIndex)];
             // returns the name property of that option tag
             return selected.name;
@@ -254,9 +254,9 @@
         lib.rotateImage360 = (targetElementID, speed, callback) => {
             const targetElement = document.querySelector(targetElementID);
             let degree = 0;
-            // stops the setInterval 
+            // stops the setInterval
             const clearInterval = () => {
-                clearTimeout(rotate);                
+                clearTimeout(rotate);
             }
             // rotates the image 360 degress
             const rotate = setInterval(() => {
